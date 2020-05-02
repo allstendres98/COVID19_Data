@@ -12,6 +12,7 @@ import com.al375502.covid_19data.database.Database;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -81,22 +82,21 @@ public class Model {
 
     public void updateCountries(final Response.Listener<ArrayList<Country>> listener, final Response.ErrorListener errorListener)
     {
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, URL_COUNTRY, null, new Response.Listener<JSONObject>(){
+        JsonArrayRequest ArrayRequest = new JsonArrayRequest(Request.Method.GET, URL_COUNTRY, null, new Response.Listener<JSONArray>(){
             @Override
-            public void onResponse(JSONObject response){
+            public void onResponse(JSONArray response){
                 FillDatabaseWithCountries(response, listener);
             }
         }, errorListener){};
-        requestQueue.add(objectRequest);
+        requestQueue.add(ArrayRequest);
     }
 
-    private void FillDatabaseWithCountries(JSONObject response, Response.Listener<ArrayList<Country>> listener) {
+    private void FillDatabaseWithCountries(JSONArray response, Response.Listener<ArrayList<Country>> listener) {
         ArrayList<Country> countries = new ArrayList<>();
         try{
-            JSONArray array = response.getJSONArray("");
-            for(int i = 0; i < array.length(); i++)
+            for(int i = 0; i < response.length(); i++)
             {
-                JSONObject extractedCountry = array.getJSONObject(i);
+                JSONObject extractedCountry = response.getJSONObject(i);
                 String country, continent;
                 country = extractedCountry.getString("country");
                 continent = extractedCountry.getString("continent");
