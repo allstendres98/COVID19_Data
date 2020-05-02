@@ -16,6 +16,6 @@ public interface DAO {
     @Query("SELECT DISTINCT continent FROM country")
     List<String> allContinents();
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertCountry(List<Country> countries);
 }

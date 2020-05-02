@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         buttonData = findViewById(R.id.buttonData);
         listView = findViewById(R.id.listView);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        /*spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String Continent = parent.getSelectedItem().toString();
@@ -48,11 +48,20 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });
+        });*/
+
+        /*spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String Continent = parent.
+                presenter.GetCountries(Continent);
+            }
+        });*/
     }
 
     public void FillListView(ArrayList<Country> countries) {
-
+        myAdapter = new MyAdapter(this, countries);
+        listView.setAdapter(myAdapter);
     }
 
     public void FillSpinner(ArrayList<String> continents) {

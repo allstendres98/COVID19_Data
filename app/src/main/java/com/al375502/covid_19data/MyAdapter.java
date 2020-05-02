@@ -39,8 +39,8 @@ public class MyAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(R.layout.country_design,parent,false);
 
-        TextView name  = (TextView) convertView.findViewById(R.id.name);
-        TextView flag = (TextView) convertView.findViewById(R.id.flag);
+        TextView name  = convertView.findViewById(R.id.name);
+        TextView flag = convertView.findViewById(R.id.flag);
 
         name.setText("" + arr.get(position).name);
         flag.setText(""   + arr.get(position).flag);
