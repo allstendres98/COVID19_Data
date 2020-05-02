@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Model {
@@ -61,9 +62,10 @@ public class Model {
         }.execute();
     }
 
-    public void getContinents(final Response.Listener<ArrayList<String>> continentResponse)
+    public ArrayList<String> getContinents(/*final Response.Listener<ArrayList<String>> continentResponse*/)
     {
-        new AsyncTask<Void, Void, ArrayList<String>>(){
+        return new ArrayList<>(dao.allContinents());
+        /*new AsyncTask<Void, Void, ArrayList<String>>(){
 
             @Override
             protected ArrayList<String> doInBackground(Void... voids) {
@@ -74,7 +76,7 @@ public class Model {
             protected void onPostExecute(ArrayList<String> continents) {
                 continentResponse.onResponse(continents);
             }
-        }.execute();
+        }.execute();*/
     }
 
     public void updateCountries(final Response.Listener<ArrayList<Country>> listener, final Response.ErrorListener errorListener)
