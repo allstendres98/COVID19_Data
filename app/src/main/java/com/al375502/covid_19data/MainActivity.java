@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.provider.FontRequest;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     Button buttonData;
     Presenter presenter;
     ListView listView;
+    MyAdapter myAdapter;
     //CustomAdapter
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -31,7 +31,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="32dp"
-        android:fontFamily="sans-serif-condensed-light"
+        android:fontFamily="serif"
         android:text="Continent:"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,8 +39,8 @@
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="232dp"
-        android:layout_height="42dp"
+        android:layout_width="278dp"
+        android:layout_height="25dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:gravity="left"
