@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Spinner spinner;
     Button buttonData;
     Presenter presenter;
+    ListView listView;
     //CustomAdapter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         presenter = new Presenter(this, Model.getInstance(getApplicationContext()));
         spinner = findViewById(R.id.spinner);
         buttonData = findViewById(R.id.buttonData);
+        listView = findViewById(R.id.listView);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
