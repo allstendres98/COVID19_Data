@@ -53,6 +53,7 @@ public class Presenter {
             });
         }
         else{
+            GetContinent();
             view.FillListView(countries);
         }
     }
