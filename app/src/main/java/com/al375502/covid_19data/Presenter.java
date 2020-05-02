@@ -44,6 +44,7 @@ public class Presenter {
                 @Override
                 public void onResponse(ArrayList<Country> countries) {
                     GetContinent();
+                    view.FillListView(countries);
                 }
             }, new Response.ErrorListener() {
                 @Override

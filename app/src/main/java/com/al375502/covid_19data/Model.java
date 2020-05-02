@@ -24,9 +24,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
+
 public class Model {
     public static final String URL_COUNTRY = "https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-continent.json";
     public static final String URL_COVID_DATA = "https://raw.githubusercontent.com/pomber/covid19/master/docs/timeseries.json";
+    public static final String URL_FLAGS = "https://raw.githubusercontent.com/pomber/covid19/master/docs/countries.json";
     private static Model model;
     private DAO dao;
     private RequestQueue requestQueue;
@@ -85,24 +88,38 @@ public class Model {
         JsonArrayRequest ArrayRequest = new JsonArrayRequest(Request.Method.GET, URL_COUNTRY, null, new Response.Listener<JSONArray>(){
             @Override
             public void onResponse(JSONArray response){
-                FillDatabaseWithCountries(response, listener);
+                final JSONArray Countries = response;
+                JsonArrayRequest ArrayFlagRequest = new JsonArrayRequest(Request.Method.GET, URL_FLAGS, null, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        FillDatabaseWithCountries(response, Countries, listener);
+                    }
+                }, errorListener){};
+
             }
         }, errorListener){};
         requestQueue.add(ArrayRequest);
     }
 
-    private void FillDatabaseWithCountries(JSONArray response, Response.Listener<ArrayList<Country>> listener) {
-        ArrayList<Country> countries = new ArrayList<>();
+    private void FillDatabaseWithCountries(JSONArray countries, JSONArray flags, Response.Listener<ArrayList<Country>> listener) {
+        ArrayList<Country> country_list = new ArrayList<>();
         try{
-            for(int i = 0; i < response.length(); i++)
+            for(int i = 0; i < countries.length(); i++)
             {
-                JSONObject extractedCountry = response.getJSONObject(i);
-                String country, continent;
+                JSONObject extractedCountry = countries.getJSONObject(i);
+                String country, continent, flag = null;
                 country = extractedCountry.getString("country");
                 continent = extractedCountry.getString("continent");
-                countries.add(new Country(country, continent));
+
+                for(int j = 0; j < flags.length(); j++){
+                    JSONArray country_flags = flags.getJSONArray(j);
+                    if(country == country_flags.toString()){
+                        flag = country_flags.getString(0);
+                    }
+                }
+                country_list.add(new Country(country, continent, flag));
             }
-            insertCountriesInDao(countries, listener);
+            insertCountriesInDao(country_list, listener);
         }catch (JSONException e)
         {
 

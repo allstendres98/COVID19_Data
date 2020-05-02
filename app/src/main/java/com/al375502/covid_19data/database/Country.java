@@ -17,9 +17,19 @@ public class Country implements Comparable<Country>, Parcelable {
     @ColumnInfo(name = "Continent")
     public String continent;
 
+    @ColumnInfo(name = "Flag")
+    public String flag;
+
+    public Country(@NonNull String name, String continent, String flag) {
+        this.name = name;
+        this.continent = continent;
+        this.flag = flag;
+    }
+
     protected Country(Parcel in) {
         name = in.readString();
         continent = in.readString();
+        flag = in.readString();
     }
 
     public static final Creator<Country> CREATOR = new Creator<Country>() {
@@ -43,15 +53,11 @@ public class Country implements Comparable<Country>, Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(continent);
+        dest.writeString(flag);
     }
 
     @Override
     public int compareTo(Country o) {
         return 0;
-    }
-
-    public Country(String name, String continent) {
-        this.name = name;
-        this.continent = continent;
     }
 }
