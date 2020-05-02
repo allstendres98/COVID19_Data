@@ -28,14 +28,13 @@ public class Presenter {
         }, continent);
     }
 
-    public ArrayList<String> GetContinent(){
-        /*model.getContinents(new Response.Listener<ArrayList<String>>() {
+    public void GetContinent(){
+        model.getContinents(new Response.Listener<ArrayList<String>>() {
             @Override
             public void onResponse(ArrayList<String> response) {
                 view.FillSpinner(response);
             }
-        });*/
-        return model.getContinents();
+        });
     }
 
 
@@ -44,7 +43,7 @@ public class Presenter {
             model.updateCountries(new Response.Listener<ArrayList<Country>>() {
                 @Override
                 public void onResponse(ArrayList<Country> countries) {
-                    view.FillSpinner(GetContinent());
+                    GetContinent();
                 }
             }, new Response.ErrorListener() {
                 @Override

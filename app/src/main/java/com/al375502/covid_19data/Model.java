@@ -63,10 +63,10 @@ public class Model {
         }.execute();
     }
 
-    public ArrayList<String> getContinents(/*final Response.Listener<ArrayList<String>> continentResponse*/)
+    public void getContinents(final Response.Listener<ArrayList<String>> continentResponse)
     {
-        return new ArrayList<>(dao.allContinents());
-        /*new AsyncTask<Void, Void, ArrayList<String>>(){
+        //return new ArrayList<>(dao.allContinents());
+        new AsyncTask<Void, Void, ArrayList<String>>(){
 
             @Override
             protected ArrayList<String> doInBackground(Void... voids) {
@@ -77,7 +77,7 @@ public class Model {
             protected void onPostExecute(ArrayList<String> continents) {
                 continentResponse.onResponse(continents);
             }
-        }.execute();*/
+        }.execute();
     }
 
     public void updateCountries(final Response.Listener<ArrayList<Country>> listener, final Response.ErrorListener errorListener)
