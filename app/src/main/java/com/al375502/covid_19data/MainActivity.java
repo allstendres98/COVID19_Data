@@ -26,15 +26,15 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     Spinner spinner;
-    Button buttonData;
+    Button buttonData, buttonInfo;
     Presenter presenter;
     ListView listView;
     MyAdapter myAdapter;
     TextView countrySelected;
     ArrayList<Country> countriesInThatContinent;
     ArrayList<String> continentsSpinner;
-    String currentContinent = "Asia";
     int selectionCurrent;
+
     //CustomAdapter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         presenter = new Presenter(this, Model.getInstance(getApplicationContext()));
         buttonData = findViewById(R.id.buttonData);
-        buttonData.setEnabled(false);spinner = findViewById(R.id.spinner);
+        buttonData.setEnabled(false);
+        buttonInfo = findViewById(R.id.info);
+        buttonInfo.setAlpha(0);
+        buttonInfo.setEnabled(false);
+        spinner = findViewById(R.id.spinner);
         listView = findViewById(R.id.listView);
         countrySelected = findViewById(R.id.selectedCountry);
         spinner = findViewById(R.id.spinner);
@@ -57,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
                     presenter.GetCountries(parent.getItemAtPosition(position).toString());
                     countrySelected.setText("");
                     buttonData.setEnabled(false);
+                    buttonInfo.setAlpha(0f);
+                    buttonInfo.setEnabled(false);
                 }
                 selectionCurrent = position;
             }
@@ -72,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 countrySelected.setText(countriesInThatContinent.get(position).name);
                 buttonData.setEnabled(true);
+                buttonInfo.setAlpha(1f);
+                buttonInfo.setEnabled(true);
             }
         });
     }
