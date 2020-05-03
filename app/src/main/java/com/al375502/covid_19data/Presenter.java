@@ -12,11 +12,12 @@ import java.util.List;
 public class Presenter {
     MainActivity view;
     Model model;
+    int cont = 0;
 
     public Presenter(MainActivity view, Model model) {
         this.view = view;
         this.model = model;
-        GetCountries("Asia");
+        GetCountries("");
     }
 
     public void GetCountries(String continent){
@@ -43,7 +44,10 @@ public class Presenter {
             model.updateCountries(new Response.Listener<ArrayList<Country>>() {
                 @Override
                 public void onResponse(ArrayList<Country> countries) {
-                    GetContinent();
+                    if(cont < 1) {
+                        GetContinent();
+                        cont++;
+                    }
                     view.FillListView(countries);
                 }
             }, new Response.ErrorListener() {
@@ -54,7 +58,10 @@ public class Presenter {
             });
         }
         else{
-            GetContinent();
+            if(cont < 1) {
+                GetContinent();
+                cont++;
+            }
             view.FillListView(countries);
         }
     }
