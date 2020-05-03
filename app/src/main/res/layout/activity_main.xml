@@ -127,4 +127,16 @@
         android:layout_height="wrap_content"
         app:barrierDirection="top" />
 
+    <Button
+        android:id="@+id/button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="55dp"
+        android:layout_height="33dp"
+        android:text="info "
+        android:textSize="12sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/selectedCountry"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toEndOf="@+id/selectedCountry" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
