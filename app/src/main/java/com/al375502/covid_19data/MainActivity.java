@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Country> countriesInThatContinent;
     ArrayList<String> continentsSpinner;
     int selectionCurrent;
+    MainActivity thisContext;
 
     //CustomAdapter
     @Override
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         countrySelected = findViewById(R.id.selectedCountry);
         spinner = findViewById(R.id.spinner);
         selectionCurrent = spinner.getSelectedItemPosition();
+        thisContext = this;
 
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -80,6 +82,20 @@ public class MainActivity extends AppCompatActivity {
                 buttonData.setEnabled(true);
                 buttonInfo.setAlpha(1f);
                 buttonInfo.setEnabled(true);
+            }
+        });
+
+        buttonInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for(int i = 0; i < countriesInThatContinent.size(); i++)
+                {
+                    if(countrySelected.getText().equals(countriesInThatContinent.get(i).name))
+                    {
+                        InfoDialog infoDialog = new InfoDialog (countriesInThatContinent.get(i), thisContext);
+                        infoDialog.show(getSupportFragmentManager(),"info dialog");
+                    }
+                }
             }
         });
     }
