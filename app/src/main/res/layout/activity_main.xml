@@ -99,13 +99,14 @@
         android:id="@+id/selectedCountry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxLength="36"
+        android:maxLength="28"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonData"
-        app:layout_constraintEnd_toEndOf="@+id/countrySelectedText"
-        app:layout_constraintStart_toStartOf="@+id/countrySelectedText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.34"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/countrySelectedText"
-        tools:text="España" />
+        tools:text="Españaasdhfkjashdfklasdhflkasjdhflkashdlf" />
 
     <TextView
         android:id="@+id/textView4"
@@ -130,13 +131,13 @@
     <Button
         android:id="@+id/info"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="55dp"
-        android:layout_height="33dp"
+        android:layout_width="41dp"
+        android:layout_height="28dp"
         android:text="info"
-        android:textSize="12sp"
+        android:textSize="8sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/selectedCountry"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toEndOf="@+id/selectedCountry" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
