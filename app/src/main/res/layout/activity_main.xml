@@ -46,10 +46,10 @@
         android:id="@+id/spinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:gravity="left"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView3"
@@ -72,8 +72,8 @@
         android:id="@+id/listView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:smoothScrollbar="true"
         android:verticalScrollbarPosition="defaultPosition"
         app:layout_constraintBottom_toTopOf="@+id/countrySelectedText"
@@ -87,22 +87,23 @@
         android:layout_height="wrap_content"
         android:text="Selected Country: "
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/buttonData"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.32"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.97" />
+        app:layout_constraintVertical_bias="0.87" />
 
     <TextView
         android:id="@+id/selectedCountry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:maxLength="36"
         android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/countrySelectedText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toEndOf="@+id/countrySelectedText"
+        app:layout_constraintBottom_toTopOf="@+id/buttonData"
+        app:layout_constraintEnd_toEndOf="@+id/countrySelectedText"
+        app:layout_constraintStart_toStartOf="@+id/countrySelectedText"
+        app:layout_constraintTop_toBottomOf="@+id/countrySelectedText"
         tools:text="España" />
 
     <TextView
@@ -114,8 +115,8 @@
         android:text="Countries"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.11"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
         app:layout_constraintVertical_bias="0.01999998" />
 
