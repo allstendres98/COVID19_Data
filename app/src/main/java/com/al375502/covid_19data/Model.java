@@ -22,10 +22,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public final class Model {
     public static final String URL_COUNTRY = "https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-continent.json";
@@ -110,18 +106,11 @@ public final class Model {
                 String country, continent, flag = "";
                 country = extractedCountry.getString("country");
                 continent = extractedCountry.getString("continent");
-                try {
+                if(!flags.isNull(country)) {
                     JSONObject country_flags = flags.getJSONObject(country);
                     flag = country_flags.getString("flag");
+                    country_list.add(new Country(country, continent, flag));
                 }
-                catch(JSONException ex){}
-                /*for(int j = 0; j < flags.length(); j++){
-
-                    if(country.equals(country_flags.toString())){
-                        flag = country_flags.getString(0);
-                    }
-                }*/
-                country_list.add(new Country(country, continent, flag));
             }
             insertCountriesInDao(country_list, listener);
         }catch (JSONException e)
