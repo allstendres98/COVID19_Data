@@ -152,7 +152,7 @@ public final class Model {
                     for(int j = 0; j < life.length(); j++){
                         extractedLifeEx = life.getJSONObject(j);
                         if(extractedLifeEx.getString("country").equals(country)){
-                            lifeEx    = extractedLifeEx == null || extractedLifeEx.isNull("expectancy")? "Unkown" : extractedLifeEx.getString("expectancy");
+                            lifeEx    = extractedLifeEx == null || extractedLifeEx.isNull("expectancy") || extractedLifeEx.getString("expectancy").equals("")? "Unkown" : extractedLifeEx.getString("expectancy");
                             break;
                         }
                     }
@@ -160,7 +160,7 @@ public final class Model {
                     for(int j = 0; j < population.length(); j++){
                         extractedPopulation = population.getJSONObject(j);
                         if(extractedPopulation.getString("country").equals(country)){
-                            popu      = extractedPopulation == null || extractedPopulation.isNull("population")? "Unkown" : extractedPopulation.getString("population");
+                            popu      = extractedPopulation == null || extractedPopulation.isNull("population") || extractedPopulation.getString("population").equals("")? "Unkown" : extractedPopulation.getString("population");
                             break;
                         }
                     }
@@ -168,7 +168,7 @@ public final class Model {
                     for(int j = 0; j < capital.length(); j++){
                         extractedCapital = capital.getJSONObject(j);
                         if(extractedCapital.getString("country").equals(country)){
-                            cap       = extractedCapital == null || extractedCapital.isNull("city")? "Unkown" : extractedCapital.getString("city");
+                            cap       = extractedCapital == null || extractedCapital.isNull("city") || extractedCapital.getString("city").equals("")? "Unkown" : extractedCapital.getString("city");
                             break;
                         }
                     }
@@ -176,7 +176,7 @@ public final class Model {
                     for(int j = 0; j < govern.length(); j++){
                         extractedGovern = govern.getJSONObject(j);
                         if(extractedGovern.getString("country").equals(country)){
-                            gov       = extractedGovern == null || extractedGovern.isNull("government")? "Unkown" : extractedGovern.getString("government");
+                            gov       = extractedGovern == null || extractedGovern.isNull("government") || extractedGovern.getString("government").equals("")? "Unkown" : extractedGovern.getString("government");
                             break;
                         }
                     }
