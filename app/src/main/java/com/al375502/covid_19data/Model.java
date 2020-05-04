@@ -225,15 +225,19 @@ public final class Model {
         ArrayList<CovidDayData> CovidData = new ArrayList<>();
 
         try{
-            JSONObject countryData = response.getJSONObject(actualCountry);
+            JSONArray countryData = response.getJSONArray(actualCountry);
             String date;
             int confirmed, deaths, recovered;
-            date = countryData.isNull("date")? "Unkown" : countryData.getString("date");
-            confirmed = countryData.isNull("confirmed")? 0 : countryData.getInt("confirmed");
-            deaths = countryData.isNull("deaths")? 0 : countryData.getInt("deaths");
-            recovered = countryData.isNull("recovered")? 0 : countryData.getInt("recovered");
+            for(int i = 0; i < countryData.length(); i++){
+                JSONObject data = countryData.getJSONObject(i);
+                date = data.isNull("date")? "Unkown" : data.getString("date");
+                confirmed = data.isNull("confirmed")? 0 : data.getInt("confirmed");
+                deaths = data.isNull("deaths")? 0 : data.getInt("deaths");
+                recovered = data.isNull("recovered")? 0 : data.getInt("recovered");
 
-            CovidData.add(new CovidDayData(date, confirmed, deaths, recovered));
+                CovidData.add(new CovidDayData(date, confirmed, deaths, recovered));
+            }
+
 
             listener.onResponse(CovidData);
         }
