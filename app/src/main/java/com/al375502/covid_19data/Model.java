@@ -137,10 +137,10 @@ public final class Model {
             for(int i = 0; i < countries.length(); i++)
             {
                 JSONObject extractedCountry    = countries.getJSONObject(i);
-                JSONObject extractedLifeEx     = life.getJSONObject(i);
-                JSONObject extractedPopulation = population.getJSONObject(i);
-                JSONObject extractedCapital    = capital.getJSONObject(i);
-                JSONObject extractedGovern     = govern.getJSONObject(i);
+                JSONObject extractedLifeEx     = i > life.length()? null : life.getJSONObject(i);
+                JSONObject extractedPopulation = i > population.length()? null : population.getJSONObject(i);
+                JSONObject extractedCapital    = i > capital.length()? null : capital.getJSONObject(i);
+                JSONObject extractedGovern     = i > govern.length()? null : govern.getJSONObject(i);
 
                 String country, continent, lifeEx, popu, cap, gov, flag = "";
 
