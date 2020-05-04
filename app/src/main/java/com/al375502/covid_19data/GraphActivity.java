@@ -17,6 +17,7 @@ public class GraphActivity extends AppCompatActivity {
     public static final String COUNTRY = "Country";
     BarChart barChart;
     Spinner mspinner, yspinner;
+    ArrayList<CovidDayData> covidDayData;
     CheckBox deaths, confirmed, recovered;
 
     @Override
@@ -38,11 +39,15 @@ public class GraphActivity extends AppCompatActivity {
 
     public void FillGraph(ArrayList<CovidDayData> response) {
         FillMonthYear(response);
+        DrawGraph();
+    }
 
+    private void DrawGraph() {
     }
 
     public void FillMonthYear(ArrayList<CovidDayData> response)
     {
+        covidDayData = response;
         ArrayList<String> Months = new ArrayList<>();
         ArrayList<String> Years = new ArrayList<>();
 
