@@ -20,16 +20,36 @@ public class Country implements Comparable<Country>, Parcelable {
     @ColumnInfo(name = "Flag")
     public String flag;
 
-    public Country(@NonNull String name, String continent, String flag) {
+    @ColumnInfo(name = "LifeExpectancy")
+    public String life;
+
+    @ColumnInfo(name = "Capital")
+    public String capital;
+
+    @ColumnInfo(name = "Govern")
+    public String govern;
+
+    @ColumnInfo(name = "Population")
+    public String population;
+
+    public Country(@NonNull String name, String continent, String flag, String life, String capital, String govern, String population) {
         this.name = name;
         this.continent = continent;
         this.flag = flag;
+        this.life = life;
+        this.capital = capital;
+        this.govern = govern;
+        this.population = population;
     }
 
     protected Country(Parcel in) {
         name = in.readString();
         continent = in.readString();
         flag = in.readString();
+        life = in.readString();
+        capital = in.readString();
+        govern = in.readString();
+        population = in.readString();
     }
 
     public static final Creator<Country> CREATOR = new Creator<Country>() {
@@ -54,6 +74,10 @@ public class Country implements Comparable<Country>, Parcelable {
         dest.writeString(name);
         dest.writeString(continent);
         dest.writeString(flag);
+        dest.writeString(life);
+        dest.writeString(capital);
+        dest.writeString(govern);
+        dest.writeString(population);
     }
 
     @Override

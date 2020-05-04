@@ -27,6 +27,10 @@ public final class Model {
     public static final String URL_COUNTRY = "https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-continent.json";
     public static final String URL_COVID_DATA = "https://raw.githubusercontent.com/pomber/covid19/master/docs/timeseries.json";
     public static final String URL_FLAGS = "https://raw.githubusercontent.com/pomber/covid19/master/docs/countries.json";
+    public static final String URL_LIFE_EXPECT = "https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-life-expectancy.json";
+    public static final String URL_POPULATION = "https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-population.json";
+    public static final String URL_CAPITAL = "https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-capital-city.json";
+    public static final String URL_GOVERN = "https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-government-type.json";
     private static Model model;
     private DAO dao;
     private RequestQueue requestQueue;
@@ -88,7 +92,36 @@ public final class Model {
                 JsonObjectRequest ArrayFlagRequest = new JsonObjectRequest(Request.Method.GET, URL_FLAGS, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        FillDatabaseWithCountries(Countries, response, listener);
+                        final JSONObject  Flags = response;
+                        JsonArrayRequest ArrayLifeRequest = new JsonArrayRequest(Request.Method.GET, URL_LIFE_EXPECT, null, new Listener<JSONArray>(){
+                            @Override
+                            public void onResponse(JSONArray response) {
+                                final JSONArray LifeExpect = response;
+                                JsonArrayRequest ArrayPopulationRequest = new JsonArrayRequest(Request.Method.GET, URL_POPULATION, null, new Listener<JSONArray>(){
+                                    @Override
+                                    public void onResponse(JSONArray response) {
+                                        final JSONArray Population = response;
+                                        JsonArrayRequest ArrayCapitalRequest = new JsonArrayRequest(Request.Method.GET, URL_CAPITAL, null, new Listener<JSONArray>(){
+                                            @Override
+                                            public void onResponse(JSONArray response) {
+                                                final JSONArray Capital = response;
+                                                JsonArrayRequest ArrayGovernRequest = new JsonArrayRequest(Request.Method.GET, URL_GOVERN, null, new Listener<JSONArray>(){
+                                                    @Override
+                                                    public void onResponse(JSONArray response) {
+                                                        final JSONArray Govern = response;
+                                                        FillDatabaseWithCountries(Countries, Flags, LifeExpect, Population, Capital, Govern, listener);
+                                                    }
+                                                }, errorListener){};
+                                                requestQueue.add(ArrayGovernRequest);
+                                            }
+                                        }, errorListener){};
+                                        requestQueue.add(ArrayCapitalRequest);
+                                    }
+                                }, errorListener){};
+                                requestQueue.add(ArrayPopulationRequest);
+                            }
+                        }, errorListener){};
+                        requestQueue.add(ArrayLifeRequest);
                     }
                 }, errorListener){};
                 requestQueue.add(ArrayFlagRequest);
@@ -97,19 +130,31 @@ public final class Model {
         requestQueue.add(ArrayRequest);
     }
 
-    private void FillDatabaseWithCountries(JSONArray countries, JSONObject flags, Response.Listener<ArrayList<Country>> listener) {
+    private void FillDatabaseWithCountries(JSONArray countries, JSONObject flags, JSONArray life, JSONArray population, JSONArray capital, JSONArray govern, Response.Listener<ArrayList<Country>> listener) {
         ArrayList<Country> country_list = new ArrayList<>();
         try{
             for(int i = 0; i < countries.length(); i++)
             {
-                JSONObject extractedCountry = countries.getJSONObject(i);
-                String country, continent, flag = "";
-                country = extractedCountry.getString("country");
+                JSONObject extractedCountry    = countries.getJSONObject(i);
+                JSONObject extractedLifeEx     = life.getJSONObject(i);
+                JSONObject extractedPopulation = population.getJSONObject(i);
+                JSONObject extractedCapital    = capital.getJSONObject(i);
+                JSONObject extractedGovern     = life.getJSONObject(i);
+
+                String country, continent, lifeEx, popu, cap, gov, flag = "";
+
+                country   = extractedCountry.getString("country");
                 continent = extractedCountry.getString("continent");
+                lifeEx    = extractedLifeEx.isNull("expectancy")? "Unkown" : extractedLifeEx.getString("expectancy");
+                popu      = extractedPopulation.isNull("population")? "Unkown" : extractedPopulation.getString("population");
+                cap       = extractedCapital.isNull("city")? "Unkown" : extractedCapital.getString("city");
+                gov       = extractedGovern.isNull("government")? "Unkown" : extractedGovern.getString("government");
+
                 if(!flags.isNull(country)) {
                     JSONObject country_flags = flags.getJSONObject(country);
-                    flag = country_flags.getString("flag");
-                    country_list.add(new Country(country, continent, flag));
+                    flag = country_flags.isNull("flag")? "Unknown" : country_flags.getString("flag");
+
+                    country_list.add(new Country(country, continent, flag, lifeEx, cap, gov, popu));
                 }
             }
             insertCountriesInDao(country_list, listener);
