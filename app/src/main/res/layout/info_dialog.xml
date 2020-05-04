@@ -81,7 +81,8 @@
         android:id="@+id/govern"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:maxLength="20"
+        android:text="sadfgdfgsdfgsdfgsdfgdsfg"
         app:layout_constraintBaseline_toBaselineOf="@+id/life"
         app:layout_constraintStart_toStartOf="@+id/textView9" />
 </androidx.constraintlayout.widget.ConstraintLayout>
