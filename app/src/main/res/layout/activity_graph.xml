@@ -12,9 +12,7 @@
         android:layout_height="331dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </com.github.mikephil.charting.charts.BarChart>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <CheckBox
         android:id="@+id/recovered"
@@ -35,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.544"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        app:layout_constraintTop_toBottomOf="@+id/yearspinner"
         app:layout_constraintVertical_bias="0.471" />
 
     <CheckBox
@@ -49,13 +47,44 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="220dp"
-        android:layout_height="28dp"
+        android:id="@+id/yearspinner"
+        android:layout_width="155dp"
+        android:layout_height="26dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.144"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bargraph"
         app:layout_constraintVertical_bias="0.12" />
+
+    <Spinner
+        android:id="@+id/monthspinner"
+        android:layout_width="155dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bargraph"
+        app:layout_constraintVertical_bias="0.12" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Year"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView7"
+        app:layout_constraintEnd_toEndOf="@+id/yearspinner"
+        app:layout_constraintStart_toStartOf="@+id/yearspinner" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Month"
+        app:layout_constraintBottom_toTopOf="@+id/monthspinner"
+        app:layout_constraintEnd_toEndOf="@+id/monthspinner"
+        app:layout_constraintStart_toStartOf="@+id/monthspinner"
+        app:layout_constraintTop_toBottomOf="@+id/bargraph" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
