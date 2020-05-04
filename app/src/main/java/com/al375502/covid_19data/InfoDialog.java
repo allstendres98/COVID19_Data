@@ -37,9 +37,9 @@ public class InfoDialog extends AppCompatDialogFragment {
             }
         });
 
-        life = viewInflate.findViewById(R.id.govern);
+        life = viewInflate.findViewById(R.id.life);
         capital = viewInflate.findViewById(R.id.capital);
-        govern = viewInflate.findViewById(R.id.life);
+        govern = viewInflate.findViewById(R.id.govern);
         population = viewInflate.findViewById(R.id.population);
 
 

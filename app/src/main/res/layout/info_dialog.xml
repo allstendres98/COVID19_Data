@@ -37,7 +37,7 @@
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.62"
+        app:layout_constraintHorizontal_bias="0.701"
         app:layout_constraintStart_toEndOf="@+id/textView2" />
 
     <TextView
