@@ -2,19 +2,13 @@ package com.al375502.covid_19data;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.FontRequest;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,7 +16,6 @@ import android.widget.TextView;
 import com.al375502.covid_19data.database.Country;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     Spinner spinner;
@@ -98,6 +91,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        buttonData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeActivity(countrySelected.getText().toString());
+            }
+        });
+    }
+
+    private void changeActivity(String countrySelected) {
+        Intent intent = new Intent(this, GraphActivity.class);
+        intent.putExtra(GraphActivity.COUNTRY, countrySelected);
+        startActivity(intent);
     }
 
     public void FillListView(ArrayList<Country> countries) {
