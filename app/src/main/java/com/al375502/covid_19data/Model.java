@@ -144,7 +144,7 @@ public final class Model {
                 JSONObject extractedCapital;
                 JSONObject extractedGovern;
 
-                String country, continent, lifeEx = "", popu = "", cap = "", gov = "", flag = "";
+                String country, continent, lifeEx = "Unknown", popu = "Unknown", cap = "Unknown", gov = "Unknown", flag = "";
                 country   = extractedCountry.getString("country");
                 continent = extractedCountry.getString("continent");
 
