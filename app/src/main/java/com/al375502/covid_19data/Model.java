@@ -238,7 +238,7 @@ public final class Model {
             listener.onResponse(CovidData);
         }
         catch (JSONException e){
-
+            Log.d("Error", e.getMessage());
         }
     }
 
