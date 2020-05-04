@@ -137,19 +137,19 @@ public final class Model {
             for(int i = 0; i < countries.length(); i++)
             {
                 JSONObject extractedCountry    = countries.getJSONObject(i);
-                JSONObject extractedLifeEx     = i > life.length()? null : life.getJSONObject(i);
-                JSONObject extractedPopulation = i > population.length()? null : population.getJSONObject(i);
-                JSONObject extractedCapital    = i > capital.length()? null : capital.getJSONObject(i);
-                JSONObject extractedGovern     = i > govern.length()? null : govern.getJSONObject(i);
+                JSONObject extractedLifeEx     = i >= life.length()? null : life.getJSONObject(i);
+                JSONObject extractedPopulation = i >= population.length()? null : population.getJSONObject(i);
+                JSONObject extractedCapital    = i >= capital.length()? null : capital.getJSONObject(i);
+                JSONObject extractedGovern     = i >= govern.length()? null : govern.getJSONObject(i);
 
                 String country, continent, lifeEx, popu, cap, gov, flag = "";
 
                 country   = extractedCountry.getString("country");
                 continent = extractedCountry.getString("continent");
-                lifeEx    = extractedLifeEx.isNull("expectancy")? "Unkown" : extractedLifeEx.getString("expectancy");
-                popu      = extractedPopulation.isNull("population")? "Unkown" : extractedPopulation.getString("population");
-                cap       = extractedCapital.isNull("city")? "Unkown" : extractedCapital.getString("city");
-                gov       = extractedGovern.isNull("government")? "Unkown" : extractedGovern.getString("government");
+                lifeEx    = extractedLifeEx == null || extractedLifeEx.isNull("expectancy")? "Unkown" : extractedLifeEx.getString("expectancy");
+                popu      = extractedPopulation == null || extractedPopulation.isNull("population")? "Unkown" : extractedPopulation.getString("population");
+                cap       = extractedCapital == null || extractedCapital.isNull("city")? "Unkown" : extractedCapital.getString("city");
+                gov       = extractedGovern == null || extractedGovern.isNull("government")? "Unkown" : extractedGovern.getString("government");
 
                 if(!flags.isNull(country)) {
                     JSONObject country_flags = flags.getJSONObject(country);
