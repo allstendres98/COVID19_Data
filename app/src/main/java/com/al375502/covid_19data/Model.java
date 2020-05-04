@@ -139,7 +139,7 @@ public final class Model {
                 JSONObject extractedLifeEx     = life.getJSONObject(i);
                 JSONObject extractedPopulation = population.getJSONObject(i);
                 JSONObject extractedCapital    = capital.getJSONObject(i);
-                JSONObject extractedGovern     = life.getJSONObject(i);
+                JSONObject extractedGovern     = govern.getJSONObject(i);
 
                 String country, continent, lifeEx, popu, cap, gov, flag = "";
 
