@@ -4,15 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Spinner;
+
+import com.github.mikephil.charting.charts.BarChart;
 
 public class GraphActivity extends AppCompatActivity {
     public static final String COUNTRY = "Country";
+    BarChart barChart;
+    Spinner spinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
+        barChart = findViewById(R.id.bargraph);
+
 
         Intent intent = getIntent();
         String country = intent.getStringExtra(COUNTRY);
+
     }
 }
