@@ -137,21 +137,48 @@ public final class Model {
             for(int i = 0; i < countries.length(); i++)
             {
                 JSONObject extractedCountry    = countries.getJSONObject(i);
-                JSONObject extractedLifeEx     = i >= life.length()? null : life.getJSONObject(i);
-                JSONObject extractedPopulation = i >= population.length()? null : population.getJSONObject(i);
-                JSONObject extractedCapital    = i >= capital.length()? null : capital.getJSONObject(i);
-                JSONObject extractedGovern     = i >= govern.length()? null : govern.getJSONObject(i);
+                JSONObject extractedLifeEx;
+                JSONObject extractedPopulation;
+                JSONObject extractedCapital;
+                JSONObject extractedGovern;
 
-                String country, continent, lifeEx, popu, cap, gov, flag = "";
-
+                String country, continent, lifeEx = "", popu = "", cap = "", gov = "", flag = "";
                 country   = extractedCountry.getString("country");
                 continent = extractedCountry.getString("continent");
-                lifeEx    = extractedLifeEx == null || extractedLifeEx.isNull("expectancy")? "Unkown" : extractedLifeEx.getString("expectancy");
-                popu      = extractedPopulation == null || extractedPopulation.isNull("population")? "Unkown" : extractedPopulation.getString("population");
-                cap       = extractedCapital == null || extractedCapital.isNull("city")? "Unkown" : extractedCapital.getString("city");
-                gov       = extractedGovern == null || extractedGovern.isNull("government")? "Unkown" : extractedGovern.getString("government");
 
                 if(!flags.isNull(country)) {
+                    for(int j = 0; j < life.length(); j++){
+                        extractedLifeEx = life.getJSONObject(i);
+                        if(extractedLifeEx.getString("country").equals(country)){
+                            lifeEx    = extractedLifeEx == null || extractedLifeEx.isNull("expectancy")? "Unkown" : extractedLifeEx.getString("expectancy");
+                            break;
+                        }
+                    }
+
+                    for(int j = 0; j < population.length(); j++){
+                        extractedPopulation = population.getJSONObject(i);
+                        if(extractedPopulation.getString("country").equals(country)){
+                            popu      = extractedPopulation == null || extractedPopulation.isNull("population")? "Unkown" : extractedPopulation.getString("population");
+                            break;
+                        }
+                    }
+
+                    for(int j = 0; j < capital.length(); j++){
+                        extractedCapital = capital.getJSONObject(i);
+                        if(extractedCapital.getString("country").equals(country)){
+                            cap       = extractedCapital == null || extractedCapital.isNull("city")? "Unkown" : extractedCapital.getString("city");
+                            break;
+                        }
+                    }
+
+                    for(int j = 0; j < govern.length(); j++){
+                        extractedGovern = govern.getJSONObject(i);
+                        if(extractedGovern.getString("country").equals(country)){
+                            gov       = extractedGovern == null || extractedGovern.isNull("government")? "Unkown" : extractedGovern.getString("government");
+                            break;
+                        }
+                    }
+
                     JSONObject country_flags = flags.getJSONObject(country);
                     flag = country_flags.isNull("flag")? "Unknown" : country_flags.getString("flag");
 
