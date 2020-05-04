@@ -40,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
         buttonInfo = findViewById(R.id.info);
         buttonInfo.setAlpha(0);
         buttonInfo.setEnabled(false);
-        spinner = findViewById(R.id.spinner);
+        spinner = findViewById(R.id.yearspinner);
         listView = findViewById(R.id.listView);
         countrySelected = findViewById(R.id.selectedCountry);
-        spinner = findViewById(R.id.spinner);
+        spinner = findViewById(R.id.yearspinner);
         selectionCurrent = spinner.getSelectedItemPosition();
         thisContext = this;
 
