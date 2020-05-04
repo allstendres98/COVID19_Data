@@ -42,12 +42,12 @@ public class InfoDialog extends AppCompatDialogFragment {
         govern = viewInflate.findViewById(R.id.govern);
         population = viewInflate.findViewById(R.id.population);
 
-        /*
+
         life.setText(countrySelected.life  + "");
         capital.setText(countrySelected.capital+ "");
         population.setText(countrySelected.population + "");
         govern.setText(countrySelected.govern + "");
-        */
+
         return builder.create();
     }
 }

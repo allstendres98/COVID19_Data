@@ -17,7 +17,7 @@ public class Presenter {
     public Presenter(MainActivity view, Model model) {
         this.view = view;
         this.model = model;
-        GetCountries("");
+        GetCountries("Asia");
     }
 
     public void GetCountries(String continent){
