@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.room.Room;
 
 import com.al375502.covid_19data.database.Country;
+import com.al375502.covid_19data.database.CovidDayData;
 import com.al375502.covid_19data.database.DAO;
 import com.al375502.covid_19data.database.Database;
 import com.android.volley.Request;
@@ -207,4 +208,39 @@ public final class Model {
             }
         }.execute();
     }
+
+
+    public void updateCovidDayData(final String actualCountry, final Listener<ArrayList<CovidDayData>> listener, Response.ErrorListener errorListener){
+
+        JsonObjectRequest ObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_COVID_DATA, null, new Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                GetCovidDayData(actualCountry, response, listener);
+            }
+        }, errorListener){};
+        requestQueue.add(ObjectRequest);
+    }
+
+    private void GetCovidDayData(String actualCountry, JSONObject response, Listener<ArrayList<CovidDayData>> listener) {
+        ArrayList<CovidDayData> CovidData = new ArrayList<>();
+
+        try{
+            JSONObject countryData = response.getJSONObject(actualCountry);
+            String date;
+            int confirmed, deaths, recovered;
+            date = countryData.isNull("date")? "Unkown" : countryData.getString("date");
+            confirmed = countryData.isNull("confirmed")? 0 : countryData.getInt("confirmed");
+            deaths = countryData.isNull("deaths")? 0 : countryData.getInt("deaths");
+            recovered = countryData.isNull("recovered")? 0 : countryData.getInt("recovered");
+
+            CovidData.add(new CovidDayData(date, confirmed, deaths, recovered));
+
+            listener.onResponse(CovidData);
+        }
+        catch (JSONException e){
+
+        }
+    }
+
+
 }
