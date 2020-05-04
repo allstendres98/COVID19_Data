@@ -20,10 +20,10 @@
         android:id="@+id/recovered"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         android:text="Recovered"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
@@ -50,9 +50,10 @@
         android:id="@+id/spinner"
         android:layout_width="220dp"
         android:layout_height="28dp"
-        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bargraph" />
+        app:layout_constraintTop_toBottomOf="@+id/bargraph"
+        app:layout_constraintVertical_bias="0.01999998" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
