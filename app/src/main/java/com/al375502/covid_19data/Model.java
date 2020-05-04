@@ -3,6 +3,7 @@ package com.al375502.covid_19data;
 import android.content.Context;
 import android.net.sip.SipSession;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.room.Room;
@@ -148,7 +149,7 @@ public final class Model {
 
                 if(!flags.isNull(country)) {
                     for(int j = 0; j < life.length(); j++){
-                        extractedLifeEx = life.getJSONObject(i);
+                        extractedLifeEx = life.getJSONObject(j);
                         if(extractedLifeEx.getString("country").equals(country)){
                             lifeEx    = extractedLifeEx == null || extractedLifeEx.isNull("expectancy")? "Unkown" : extractedLifeEx.getString("expectancy");
                             break;
@@ -156,7 +157,7 @@ public final class Model {
                     }
 
                     for(int j = 0; j < population.length(); j++){
-                        extractedPopulation = population.getJSONObject(i);
+                        extractedPopulation = population.getJSONObject(j);
                         if(extractedPopulation.getString("country").equals(country)){
                             popu      = extractedPopulation == null || extractedPopulation.isNull("population")? "Unkown" : extractedPopulation.getString("population");
                             break;
@@ -164,7 +165,7 @@ public final class Model {
                     }
 
                     for(int j = 0; j < capital.length(); j++){
-                        extractedCapital = capital.getJSONObject(i);
+                        extractedCapital = capital.getJSONObject(j);
                         if(extractedCapital.getString("country").equals(country)){
                             cap       = extractedCapital == null || extractedCapital.isNull("city")? "Unkown" : extractedCapital.getString("city");
                             break;
@@ -172,7 +173,7 @@ public final class Model {
                     }
 
                     for(int j = 0; j < govern.length(); j++){
-                        extractedGovern = govern.getJSONObject(i);
+                        extractedGovern = govern.getJSONObject(j);
                         if(extractedGovern.getString("country").equals(country)){
                             gov       = extractedGovern == null || extractedGovern.isNull("government")? "Unkown" : extractedGovern.getString("government");
                             break;
@@ -188,7 +189,7 @@ public final class Model {
             insertCountriesInDao(country_list, listener);
         }catch (JSONException e)
         {
-
+            Log.d("Error", e.getMessage());
         }
     }
 
