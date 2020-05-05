@@ -154,6 +154,7 @@ public final class Model {
                 country   = extractedCountry.getString("country");
                 continent = extractedCountry.getString("continent");
 
+                Log.d("Pais", "FillDatabaseWithCountries: " + country +" " + countriesAviable.isNull(country));
                 if(!flags.isNull(country) && !countriesAviable.isNull(country)) {
                     for(int j = 0; j < life.length(); j++){
                         extractedLifeEx = life.getJSONObject(j);
