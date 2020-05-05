@@ -149,6 +149,7 @@ public class GraphActivity extends AppCompatActivity {
     }
 
     public void FillGraph(ArrayList<CovidDayData> response) {
+        response.add(new CovidDayData("2019-12-31",0,0,0));
         FillMonthYear(response);
         DrawGraph();
     }
