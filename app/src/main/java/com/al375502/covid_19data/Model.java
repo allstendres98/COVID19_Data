@@ -112,7 +112,13 @@ public final class Model {
                                                     @Override
                                                     public void onResponse(JSONArray response) {
                                                         final JSONArray Govern = response;
-                                                        FillDatabaseWithCountries(Countries, Flags, LifeExpect, Population, Capital, Govern, listener);
+                                                        JsonObjectRequest ObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_COVID_DATA, null, new Listener<JSONObject>() {
+                                                            @Override
+                                                            public void onResponse(JSONObject response) {
+                                                                FillDatabaseWithCountries(Countries, Flags, LifeExpect, Population, Capital, Govern, response, listener);
+                                                            }
+                                                        }, errorListener){};
+                                                        requestQueue.add(ObjectRequest);
                                                     }
                                                 }, errorListener){};
                                                 requestQueue.add(ArrayGovernRequest);
@@ -133,7 +139,7 @@ public final class Model {
         requestQueue.add(ArrayRequest);
     }
 
-    private void FillDatabaseWithCountries(JSONArray countries, JSONObject flags, JSONArray life, JSONArray population, JSONArray capital, JSONArray govern, Response.Listener<ArrayList<Country>> listener) {
+    private void FillDatabaseWithCountries(JSONArray countries, JSONObject flags, JSONArray life, JSONArray population, JSONArray capital, JSONArray govern, JSONObject countriesAviable,Response.Listener<ArrayList<Country>> listener) {
         ArrayList<Country> country_list = new ArrayList<>();
         try{
             for(int i = 0; i < countries.length(); i++)
@@ -148,7 +154,7 @@ public final class Model {
                 country   = extractedCountry.getString("country");
                 continent = extractedCountry.getString("continent");
 
-                if(!flags.isNull(country)) {
+                if(!flags.isNull(country) && !countriesAviable.isNull(country)) {
                     for(int j = 0; j < life.length(); j++){
                         extractedLifeEx = life.getJSONObject(j);
                         if(extractedLifeEx.getString("country").equals(country)){
