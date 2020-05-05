@@ -3,6 +3,7 @@ package com.al375502.covid_19data;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -42,6 +43,11 @@ public class GraphActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
         barChart = findViewById(R.id.bargraph);
+        barChart.setDrawBarShadow(false);
+        barChart.setDrawValueAboveBar(true);
+        barChart.setMaxVisibleValueCount(500);
+        barChart.setPinchZoom(false);
+        barChart.setDrawGridBackground(true);
         yspinner = findViewById(R.id.cspinner);
         mspinner = findViewById(R.id.monthspinner);
 
@@ -138,22 +144,25 @@ public class GraphActivity extends AppCompatActivity {
             if(!day.equals("")){
                 Log.d("Day", day);
                 days[Integer.parseInt(day)-1] = day;
-                deaths.add(new BarEntry(covidDayData.get(i).death, Integer.parseInt(day)));
-                confirmed.add(new BarEntry(covidDayData.get(i).confirmed, Integer.parseInt(day)));
-                recovereds.add(new BarEntry(covidDayData.get(i).recovered, Integer.parseInt(day)));
+                deaths.add(new BarEntry(Integer.parseInt(day), covidDayData.get(i).death));
+                confirmed.add(new BarEntry(Integer.parseInt(day), covidDayData.get(i).confirmed));
+                recovereds.add(new BarEntry( Integer.parseInt(day), covidDayData.get(i).recovered));
             }
         }
 
         deathsDS = new BarDataSet(deaths, "Deaths");
+        deathsDS.setColor(Color.RED);
         confirmedDS = new BarDataSet(confirmed, "Confirmed");
+        confirmedDS.setColor(Color.BLUE);
         recoveredsDS = new BarDataSet(recovereds, "Recovered");
+        recoveredsDS.setColor(Color.GREEN);
 
         ArrayList<BarDataSet> datasets = new ArrayList<>();
         datasets.add(deathsDS);
         datasets.add(confirmedDS);
         datasets.add(recoveredsDS);
 
-        BarData theData = new BarData(confirmedDS, deathsDS, recoveredsDS);
+        BarData theData = new BarData(confirmedDS, recoveredsDS,deathsDS);
         barChart.setData(theData);
     }
 
