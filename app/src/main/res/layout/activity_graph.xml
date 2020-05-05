@@ -8,16 +8,19 @@
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/bargraph"
-        android:layout_width="316dp"
+        android:layout_width="0dp"
         android:layout_height="331dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/countryName" />
 
     <CheckBox
         android:id="@+id/recovered"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:checked="true"
         android:text="Recovered"
         app:layout_constraintBaseline_toBaselineOf="@+id/confirmed"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,6 +31,7 @@
         android:id="@+id/confirmed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:checked="true"
         android:text="Confirmed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,6 +44,7 @@
         android:id="@+id/deaths"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:checked="true"
         android:text="Deaths"
         app:layout_constraintBaseline_toBaselineOf="@+id/confirmed"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +88,22 @@
         android:text="Month"
         app:layout_constraintBottom_toTopOf="@+id/monthspinner"
         app:layout_constraintEnd_toEndOf="@+id/monthspinner"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/monthspinner"
-        app:layout_constraintTop_toBottomOf="@+id/bargraph" />
+        app:layout_constraintTop_toBottomOf="@+id/bargraph"
+        app:layout_constraintVertical_bias="0.961" />
+
+    <TextView
+        android:id="@+id/countryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="TextView"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,9 +13,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.al375502.covid_19data.database.CovidDayData;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -36,26 +38,54 @@ public class GraphActivity extends AppCompatActivity {
     Spinner mspinner, yspinner;
     ArrayList<CovidDayData> covidDayData;
     int selectionCurrent, mselectionCurrent;
-    CheckBox deaths, confirmed, recovered;
+    CheckBox deathsCB, confirmedCB, recoveredCB;
+    TextView countryName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
+
+        Intent intent = getIntent();
+        String country = intent.getStringExtra(COUNTRY);
+        final GraphPresenter presenter = new GraphPresenter(this, Model.getInstance(getApplicationContext()));
+        presenter.GetCountryCovidData(country);
+
+        countryName = findViewById(R.id.countryName);
+        countryName.setText(country+" Evolution");
         barChart = findViewById(R.id.bargraph);
         barChart.setDrawBarShadow(false);
         barChart.setDrawValueAboveBar(true);
         barChart.setMaxVisibleValueCount(500);
         barChart.setPinchZoom(false);
         barChart.setDrawGridBackground(true);
+
         yspinner = findViewById(R.id.cspinner);
         mspinner = findViewById(R.id.monthspinner);
+        deathsCB = findViewById(R.id.deaths);
+        confirmedCB = findViewById(R.id.confirmed);
+        recoveredCB = findViewById(R.id.recovered);
 
+        deathsCB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DrawGraph();
+            }
+        });
 
-        Intent intent = getIntent();
-        String country = intent.getStringExtra(COUNTRY);
-        final GraphPresenter presenter = new GraphPresenter(this, Model.getInstance(getApplicationContext()));
-        presenter.GetCountryCovidData(country);
+        confirmedCB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DrawGraph();
+            }
+        });
+
+        recoveredCB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DrawGraph();
+            }
+        });
 
         selectionCurrent = yspinner.getSelectedItemPosition();
         mselectionCurrent = mspinner.getSelectedItemPosition();
@@ -157,13 +187,22 @@ public class GraphActivity extends AppCompatActivity {
         recoveredsDS = new BarDataSet(recovereds, "Recovered");
         recoveredsDS.setColor(Color.GREEN);
 
-        ArrayList<BarDataSet> datasets = new ArrayList<>();
-        datasets.add(deathsDS);
-        datasets.add(confirmedDS);
-        datasets.add(recoveredsDS);
+        BarData theData = new BarData();
+        int cont = 0;
+        if(confirmedCB.isChecked()){theData.addDataSet(confirmedDS); cont++;}
+        if(recoveredCB.isChecked()){theData.addDataSet(recoveredsDS); cont++;}
+        if(deathsCB.isChecked()){ theData.addDataSet(deathsDS); cont++;}
 
-        BarData theData = new BarData(confirmedDS, recoveredsDS,deathsDS);
+        theData.setBarWidth(0.5f);
+        barChart.animateX(1000);
+        barChart.animateY(1000);
         barChart.setData(theData);
+
+
+        float groupSpace = 0.1f;
+        float barSpace = 0.02f;
+
+        if(cont > 1) barChart.groupBars(1, groupSpace, barSpace);
     }
 
     public void FillMonthYear(ArrayList<CovidDayData> response)
