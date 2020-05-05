@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.Spinner;
@@ -18,6 +20,7 @@ public class GraphActivity extends AppCompatActivity {
     BarChart barChart;
     Spinner mspinner, yspinner;
     ArrayList<CovidDayData> covidDayData;
+    int selectionCurrent;
     CheckBox deaths, confirmed, recovered;
 
     @Override
@@ -25,7 +28,7 @@ public class GraphActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
         barChart = findViewById(R.id.bargraph);
-        yspinner = findViewById(R.id.yearspinner);
+        yspinner = findViewById(R.id.cspinner);
         mspinner = findViewById(R.id.monthspinner);
 
 
@@ -34,7 +37,46 @@ public class GraphActivity extends AppCompatActivity {
         final GraphPresenter presenter = new GraphPresenter(this, Model.getInstance(getApplicationContext()));
         presenter.GetCountryCovidData(country);
 
+        selectionCurrent = yspinner.getSelectedItemPosition();
 
+        yspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (selectionCurrent != position){
+                    //Movida aqui para que actualice los meses respecto al año
+                    modifySpinnerMonth(parent.getSelectedItem().toString());
+                }
+                selectionCurrent = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                return;
+            }
+        });
+    }
+
+    private void modifySpinnerMonth(String actualYear) {
+        ArrayList<String> Months = new ArrayList<>();
+        for(int i = 0; i < covidDayData.size(); i++) {
+            String year = "", month = "";
+            boolean yearDone = false;
+            boolean monthDone = false;
+            for (char c : covidDayData.get(i).date.toCharArray()) {
+                if (Character.toString(c).equals("-")) {
+                    if (yearDone) break;
+                    yearDone = true;
+                    if(!year.equals(actualYear)) break;
+                } else if (!yearDone) year += c;
+                else if (!monthDone && yearDone) month += c;
+            }
+            month = getStringMonth(month);
+            if(!Months.contains(month) && !month.equals("null")) Months.add(month);
+        }
+        ArrayAdapter madapter = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_dropdown_item,
+                Months);
+        mspinner.setAdapter(madapter);
     }
 
     public void FillGraph(ArrayList<CovidDayData> response) {
@@ -65,34 +107,8 @@ public class GraphActivity extends AppCompatActivity {
                 else if(!monthDone && yearDone) month += c;
             }
             if(!Years.contains(year)) Years.add(year);
-            switch (month){
-                case "1": month = "January";
-                break;
-                case "2": month = "February";
-                    break;
-                case "3": month = "March";
-                    break;
-                case "4": month = "April";
-                    break;
-                case "5": month = "May";
-                    break;
-                case "6": month = "June";
-                    break;
-                case "7": month = "July";
-                    break;
-                case "8": month = "August";
-                    break;
-                case "9": month = "September";
-                    break;
-                case "10": month = "October";
-                    break;
-                case "11": month = "November";
-                    break;
-                case "12": month = "December";
-                    break;
-                default: break;
-            }
-            if(!Months.contains(month)) Months.add(month);
+            month = getStringMonth(month);
+            if(!Months.contains(month) && !month.equals("null")) Months.add(month);
         }
         ArrayAdapter madapter = new ArrayAdapter(this,
                 android.R.layout.simple_spinner_dropdown_item,
@@ -102,6 +118,37 @@ public class GraphActivity extends AppCompatActivity {
                 Years);
         mspinner.setAdapter(madapter);
         yspinner.setAdapter(yadapter);
+    }
 
+    private String getStringMonth(String month)
+    {
+        switch (month){
+            case "1": month = "January";
+                break;
+            case "2": month = "February";
+                break;
+            case "3": month = "March";
+                break;
+            case "4": month = "April";
+                break;
+            case "5": month = "May";
+                break;
+            case "6": month = "June";
+                break;
+            case "7": month = "July";
+                break;
+            case "8": month = "August";
+                break;
+            case "9": month = "September";
+                break;
+            case "10": month = "October";
+                break;
+            case "11": month = "November";
+                break;
+            case "12": month = "December";
+                break;
+            default: month = "null"; break;
+        }
+        return month;
     }
 }
