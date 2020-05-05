@@ -153,8 +153,9 @@ public final class Model {
                 String country, continent, lifeEx = "Unknown", popu = "Unknown", cap = "Unknown", gov = "Unknown", flag = "";
                 country   = extractedCountry.getString("country");
                 continent = extractedCountry.getString("continent");
+                Log.d("Pais", "FillDatabaseWithCountries: " + country +" "+ countriesAviable.isNull(country));
 
-                if(!countriesAviable.isNull(country)) {
+                if(!flags.isNull(country) && !countriesAviable.isNull(country)) {
                     for(int j = 0; j < life.length(); j++){
                         extractedLifeEx = life.getJSONObject(j);
                         if(extractedLifeEx.getString("country").equals(country)){
