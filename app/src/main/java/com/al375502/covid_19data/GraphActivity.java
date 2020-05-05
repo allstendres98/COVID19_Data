@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -40,6 +41,7 @@ public class GraphActivity extends AppCompatActivity {
     int selectionCurrent, mselectionCurrent;
     CheckBox deathsCB, confirmedCB, recoveredCB;
     TextView countryName;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,7 @@ public class GraphActivity extends AppCompatActivity {
         deathsCB = findViewById(R.id.deaths);
         confirmedCB = findViewById(R.id.confirmed);
         recoveredCB = findViewById(R.id.recovered);
+        progressBar = findViewById(R.id.progressBar);
 
         deathsCB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,6 +154,7 @@ public class GraphActivity extends AppCompatActivity {
     }
 
     private void DrawGraph() {
+        progressBar.setAlpha(1);
         String currentYear = yspinner.getSelectedItem().toString();
         String currentMonth = getNumberMonth(mspinner.getSelectedItem().toString());
         ArrayList<BarEntry> deaths = new ArrayList<>(), confirmed = new ArrayList<>(), recovereds = new ArrayList<>();
@@ -203,6 +207,7 @@ public class GraphActivity extends AppCompatActivity {
         float barSpace = 0.02f;
 
         if(cont > 1) barChart.groupBars(1, groupSpace, barSpace);
+        progressBar.setAlpha(0);
     }
 
     public void FillMonthYear(ArrayList<CovidDayData> response)

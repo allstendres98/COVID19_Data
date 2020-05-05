@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> continentsSpinner;
     int selectionCurrent;
     MainActivity thisContext;
+    ProgressBar progressBar2;
 
     //CustomAdapter
     @Override
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         buttonInfo.setEnabled(false);
         spinner = findViewById(R.id.cspinner);
         listView = findViewById(R.id.listView);
+        progressBar2 = findViewById(R.id.progressBar2);
         countrySelected = findViewById(R.id.selectedCountry);
         selectionCurrent = spinner.getSelectedItemPosition();
         thisContext = this;
@@ -106,9 +109,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void FillListView(ArrayList<Country> countries) {
+        progressBar2.setAlpha(1);
         countriesInThatContinent = countries;
         myAdapter = new MyAdapter(this, countries);
         listView.setAdapter(myAdapter);
+        progressBar2.setAlpha(0);
     }
 
     public void FillSpinner(ArrayList<String> continents) {

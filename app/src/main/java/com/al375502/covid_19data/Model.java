@@ -154,8 +154,7 @@ public final class Model {
                 country   = extractedCountry.getString("country");
                 continent = extractedCountry.getString("continent");
 
-                Log.d("Pais", "FillDatabaseWithCountries: " + country +" " + countriesAviable.isNull(country));
-                if(!flags.isNull(country) && !countriesAviable.isNull(country)) {
+                if(!countriesAviable.isNull(country)) {
                     for(int j = 0; j < life.length(); j++){
                         extractedLifeEx = life.getJSONObject(j);
                         if(extractedLifeEx.getString("country").equals(country)){
@@ -216,7 +215,6 @@ public final class Model {
         }.execute();
     }
 
-
     public void updateCovidDayData(final String actualCountry, final Listener<ArrayList<CovidDayData>> listener, Response.ErrorListener errorListener){
 
         JsonObjectRequest ObjectRequest = new JsonObjectRequest(Request.Method.GET, URL_COVID_DATA, null, new Listener<JSONObject>() {
@@ -245,13 +243,10 @@ public final class Model {
                 CovidData.add(new CovidDayData(date, confirmed, deaths, recovered));
             }
 
-
             listener.onResponse(CovidData);
         }
         catch (JSONException e){
             Log.d("Error", e.getMessage());
         }
     }
-
-
 }
