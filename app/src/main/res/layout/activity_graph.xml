@@ -24,7 +24,7 @@
         android:text="Recovered"
         app:layout_constraintBaseline_toBaselineOf="@+id/confirmed"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintHorizontal_bias="0.544"
         app:layout_constraintStart_toStartOf="parent" />
 
     <CheckBox
@@ -35,10 +35,10 @@
         android:text="Confirmed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.532"
+        app:layout_constraintHorizontal_bias="0.076"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cspinner"
-        app:layout_constraintVertical_bias="0.421" />
+        app:layout_constraintVertical_bias="0.461" />
 
     <CheckBox
         android:id="@+id/deaths"

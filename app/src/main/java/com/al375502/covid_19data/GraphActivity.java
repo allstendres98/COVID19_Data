@@ -18,20 +18,13 @@ import android.widget.TextView;
 
 import com.al375502.covid_19data.database.CovidDayData;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.DataSet;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.model.GradientColor;
-import com.github.mikephil.charting.utils.MPPointF;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class GraphActivity extends AppCompatActivity {
     public static final String COUNTRY = "Country";
@@ -58,7 +51,7 @@ public class GraphActivity extends AppCompatActivity {
         barChart = findViewById(R.id.bargraph);
         barChart.setDrawBarShadow(false);
         barChart.setDrawValueAboveBar(true);
-        barChart.setMaxVisibleValueCount(500);
+        //barChart.setMaxVisibleValueCount(500);
         barChart.setPinchZoom(false);
         barChart.setDrawGridBackground(true);
 
@@ -149,7 +142,7 @@ public class GraphActivity extends AppCompatActivity {
     }
 
     public void FillGraph(ArrayList<CovidDayData> response) {
-        response.add(new CovidDayData("2019-12-31",0,0,0));
+        response.add(new CovidDayData("2019-12-31",0,0,0)); //Data added just for you to see the implementation of the top method
         FillMonthYear(response);
         DrawGraph();
     }
@@ -160,7 +153,7 @@ public class GraphActivity extends AppCompatActivity {
         String currentMonth = getNumberMonth(mspinner.getSelectedItem().toString());
         ArrayList<BarEntry> deaths = new ArrayList<>(), confirmed = new ArrayList<>(), recovereds = new ArrayList<>();
         BarDataSet deathsDS, confirmedDS, recoveredsDS;
-        String[] days = new String[32];
+        ArrayList<String> days_array = new ArrayList();
 
         for(int i = 0; i < covidDayData.size(); i++) {
             String year = "", month = "", day = "";
@@ -177,12 +170,15 @@ public class GraphActivity extends AppCompatActivity {
                 else if(monthDone) day += c;
             }
             if(!day.equals("")){
-                Log.d("Day", day);
-                days[Integer.parseInt(day)-1] = day;
-                deaths.add(new BarEntry(Integer.parseInt(day), covidDayData.get(i).death));
-                confirmed.add(new BarEntry(Integer.parseInt(day), covidDayData.get(i).confirmed));
-                recovereds.add(new BarEntry( Integer.parseInt(day), covidDayData.get(i).recovered));
+                days_array.add(day);
+                deaths.add(new BarEntry(days_array.size(), covidDayData.get(i).death));
+                confirmed.add(new BarEntry(days_array.size(), covidDayData.get(i).confirmed));
+                recovereds.add(new BarEntry(days_array.size(), covidDayData.get(i).recovered));
             }
+        }
+        String[] days = new String[days_array.size()];
+        for(int i = 0; i < days.length; i++){
+            days[i] = "Day " + days_array.get(i);
         }
 
         deathsDS = new BarDataSet(deaths, "Deaths");
@@ -198,16 +194,39 @@ public class GraphActivity extends AppCompatActivity {
         if(recoveredCB.isChecked()){theData.addDataSet(recoveredsDS); cont++;}
         if(deathsCB.isChecked()){ theData.addDataSet(deathsDS); cont++;}
 
-        theData.setBarWidth(0.5f);
         barChart.animateX(1000);
         barChart.animateY(1000);
+
         barChart.setData(theData);
 
+        XAxis xAxis = barChart.getXAxis();
+        barChart.setVisibleXRangeMaximum(5);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(days));
+        xAxis.setCenterAxisLabels(true);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1);
+        xAxis.setGranularityEnabled(true);
 
-        float groupSpace = 0.1f;
-        float barSpace = 0.02f;
+        barChart.setDragEnabled(true);
+        theData.setBarWidth(0.2f);
 
-        if(cont > 1) barChart.groupBars(1, groupSpace, barSpace);
+        float barSpace = 0.05f;
+        float groupSpace = 1 - (0.2f + barSpace)*cont;
+
+        if(cont > 1) {
+            barChart.getXAxis().setAxisMinimum(0);
+            barChart.getXAxis().setAxisMaximum(0+barChart.getBarData().getGroupWidth(groupSpace, barSpace) * days.length);
+            barChart.getAxisLeft().setAxisMinimum(0);
+            barChart.groupBars(0, groupSpace, barSpace);
+        }
+        else{
+            //Cuando solo selecionas una sola no sale centrada, pero con multiples sale de lujo :D
+            //PD: Hay que hacer algo
+
+        }
+
+        barChart.invalidate();
+
         progressBar.setAlpha(0);
     }
 
