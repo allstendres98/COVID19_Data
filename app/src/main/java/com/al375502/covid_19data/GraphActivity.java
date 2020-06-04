@@ -4,10 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.DashPathEffect;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -56,8 +53,8 @@ public class GraphActivity extends AppCompatActivity {
         barChart.setDrawValueAboveBar(true);
         //barChart.setMaxVisibleValueCount(500);
         barChart.setPinchZoom(false);
-        barChart.setDrawGridBackground(true);
-
+        barChart.setDrawGridBackground(false);
+        barChart.setGridBackgroundColor(Color.WHITE);
         yspinner = findViewById(R.id.cspinner);
         mspinner = findViewById(R.id.monthspinner);
         deathsCB = findViewById(R.id.deaths);
