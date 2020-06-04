@@ -186,9 +186,9 @@ public class GraphActivity extends AppCompatActivity {
             }
             if(!day.equals("")){
                 days_array.add(day);
-                deaths.add(new BarEntry(days_array.size(), draw_total && i != 0? covidDayData.get(i).death : covidDayData.get(i-1).death - covidDayData.get(i).death));
-                confirmed.add(new BarEntry(days_array.size(), draw_total && i != 0? covidDayData.get(i).confirmed : covidDayData.get(i-1).confirmed - covidDayData.get(i).confirmed));
-                recovereds.add(new BarEntry(days_array.size(), draw_total && i != 0? covidDayData.get(i).recovered : covidDayData.get(i-1).recovered - covidDayData.get(i).recovered));
+                deaths.add(new BarEntry(days_array.size(), draw_total? covidDayData.get(i).death : i != 0? covidDayData.get(i).death - covidDayData.get(i-1).death : covidDayData.get(i).death));
+                confirmed.add(new BarEntry(days_array.size(), draw_total? covidDayData.get(i).confirmed : i != 0? covidDayData.get(i).confirmed - covidDayData.get(i-1).confirmed : covidDayData.get(i).confirmed));
+                recovereds.add(new BarEntry(days_array.size(), draw_total? covidDayData.get(i).recovered : i != 0? covidDayData.get(i).recovered - covidDayData.get(i-1).recovered : covidDayData.get(i).recovered));
             }
         }
         String[] days = new String[days_array.size()];
