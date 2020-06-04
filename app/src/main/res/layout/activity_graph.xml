@@ -39,7 +39,7 @@
         app:layout_constraintHorizontal_bias="0.076"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cspinner"
-        app:layout_constraintVertical_bias="0.41000003" />
+        app:layout_constraintVertical_bias="0.32999998" />
 
     <CheckBox
         android:id="@+id/deaths"
@@ -61,7 +61,7 @@
         app:layout_constraintHorizontal_bias="0.363"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bargraph"
-        app:layout_constraintVertical_bias="0.395" />
+        app:layout_constraintVertical_bias="0.19999999" />
 
     <Spinner
         android:id="@+id/monthspinner"
@@ -87,11 +87,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Month"
-        app:layout_constraintBottom_toTopOf="@+id/monthspinner"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/monthspinner"
         app:layout_constraintStart_toStartOf="@+id/monthspinner"
         app:layout_constraintTop_toBottomOf="@+id/bargraph"
-        app:layout_constraintVertical_bias="0.885" />
+        app:layout_constraintVertical_bias="0.110000014" />
 
     <TextView
         android:id="@+id/countryName"
