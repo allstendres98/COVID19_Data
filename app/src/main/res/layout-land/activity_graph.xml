@@ -113,8 +113,8 @@
         android:text="TextView"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.42"
+        app:layout_constraintEnd_toStartOf="@+id/Total_button"
+        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -130,13 +130,14 @@
 
     <Button
         android:id="@+id/Total_button"
-        android:layout_width="184dp"
+        android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:text="Show Total"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/bargraph"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/countryName"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
