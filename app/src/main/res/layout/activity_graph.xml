@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Total_button"
+        app:layout_constraintTop_toBottomOf="@+id/countryName"
         app:layout_constraintVertical_bias="0.0" />
 
     <CheckBox
@@ -39,7 +39,7 @@
         app:layout_constraintHorizontal_bias="0.076"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cspinner"
-        app:layout_constraintVertical_bias="0.24000001" />
+        app:layout_constraintVertical_bias="0.29000002" />
 
     <CheckBox
         android:id="@+id/deaths"
@@ -58,10 +58,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/monthspinner"
-        app:layout_constraintHorizontal_bias="0.363"
+        app:layout_constraintHorizontal_bias="0.22"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bargraph"
-        app:layout_constraintVertical_bias="0.110000014" />
+        app:layout_constraintVertical_bias="0.19999999" />
 
     <Spinner
         android:id="@+id/monthspinner"
@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/cspinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.776"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cspinner" />
 
@@ -91,7 +91,7 @@
         app:layout_constraintEnd_toEndOf="@+id/monthspinner"
         app:layout_constraintStart_toStartOf="@+id/monthspinner"
         app:layout_constraintTop_toBottomOf="@+id/bargraph"
-        app:layout_constraintVertical_bias="0.01999998" />
+        app:layout_constraintVertical_bias="0.110000014" />
 
     <TextView
         android:id="@+id/countryName"
@@ -118,12 +118,14 @@
 
     <Button
         android:id="@+id/Total_button"
-        android:layout_width="124dp"
-        android:layout_height="32dp"
+        android:layout_width="66dp"
+        android:layout_height="50dp"
         android:text="Show Total"
         android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/monthspinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/countryName" />
+        app:layout_constraintHorizontal_bias="0.72"
+        app:layout_constraintStart_toEndOf="@+id/monthspinner"
+        app:layout_constraintTop_toTopOf="@+id/textView7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
