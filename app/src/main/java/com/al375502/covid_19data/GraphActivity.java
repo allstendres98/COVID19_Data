@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -35,6 +36,8 @@ public class GraphActivity extends AppCompatActivity {
     CheckBox deathsCB, confirmedCB, recoveredCB;
     TextView countryName;
     ProgressBar progressBar;
+    Button total;
+    Boolean draw_total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,18 @@ public class GraphActivity extends AppCompatActivity {
         confirmedCB = findViewById(R.id.confirmed);
         recoveredCB = findViewById(R.id.recovered);
         progressBar = findViewById(R.id.progressBar);
+        total = findViewById(R.id.Total_button);
+        draw_total = false;
+
+        total.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                draw_total = !draw_total;
+                if(draw_total)total.setText("Per Day");
+                else total.setText("Total");
+                DrawGraph();
+            }
+        });
 
         deathsCB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,9 +186,9 @@ public class GraphActivity extends AppCompatActivity {
             }
             if(!day.equals("")){
                 days_array.add(day);
-                deaths.add(new BarEntry(days_array.size(), covidDayData.get(i).death));
-                confirmed.add(new BarEntry(days_array.size(), covidDayData.get(i).confirmed));
-                recovereds.add(new BarEntry(days_array.size(), covidDayData.get(i).recovered));
+                deaths.add(new BarEntry(days_array.size(), draw_total && i != 0? covidDayData.get(i).death : covidDayData.get(i-1).death - covidDayData.get(i).death));
+                confirmed.add(new BarEntry(days_array.size(), draw_total && i != 0? covidDayData.get(i).confirmed : covidDayData.get(i-1).confirmed - covidDayData.get(i).confirmed));
+                recovereds.add(new BarEntry(days_array.size(), draw_total && i != 0? covidDayData.get(i).recovered : covidDayData.get(i-1).recovered - covidDayData.get(i).recovered));
             }
         }
         String[] days = new String[days_array.size()];
@@ -222,7 +237,6 @@ public class GraphActivity extends AppCompatActivity {
         else{
             //Cuando solo selecionas una sola no sale centrada, pero con multiples sale de lujo :D
             //PD: Hay que hacer algo
-
         }
 
         barChart.invalidate();
