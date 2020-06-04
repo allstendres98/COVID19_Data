@@ -71,8 +71,8 @@ public class GraphActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 draw_total = !draw_total;
-                if(draw_total)total.setText("Per Day");
-                else total.setText("Total");
+                if(draw_total)total.setText("Show Per Day");
+                else total.setText("Show Total");
                 DrawGraph();
             }
         });
@@ -215,7 +215,7 @@ public class GraphActivity extends AppCompatActivity {
         barChart.setData(theData);
 
         XAxis xAxis = barChart.getXAxis();
-        barChart.setVisibleXRangeMaximum(5);
+        barChart.setVisibleXRangeMaximum(days.length);
         xAxis.setValueFormatter(new IndexAxisValueFormatter(days));
         xAxis.setCenterAxisLabels(true);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);

@@ -10,11 +10,10 @@
         android:id="@+id/bargraph"
         android:layout_width="0dp"
         android:layout_height="331dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/countryName" />
+        app:layout_constraintTop_toBottomOf="@+id/Total_button" />
 
     <CheckBox
         android:id="@+id/recovered"
@@ -38,7 +37,7 @@
         app:layout_constraintHorizontal_bias="0.076"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cspinner"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.41000003" />
 
     <CheckBox
         android:id="@+id/deaths"
@@ -117,14 +116,12 @@
 
     <Button
         android:id="@+id/Total_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Total"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="124dp"
+        android:layout_height="32dp"
+        android:text="Show Total"
+        android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cspinner"
-        app:layout_constraintVertical_bias="0.741" />
+        app:layout_constraintTop_toBottomOf="@+id/countryName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
